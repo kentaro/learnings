@@ -1,0 +1,69 @@
+- textbook = data.textbooks[current_resource.path.split('/').first]
+doctype html
+html
+  head
+    title
+      = [ current_resource.metadata[:page]['title'], textbook && textbook['title'] ].compact.join(' - ')
+    meta name="viewport" content="width=device-width"
+    == stylesheet_link_tag 'all'
+    script type="text/x-mathjax-config"
+      | MathJax.Hub.Config({
+      |   tex2jax: {
+      |     inlineMath: [["\\(", "\\)"]],
+      |     displayMath: [["\\[", "\\]"]],
+      |     ignoreClass: "nomath|nolatexmath"
+      |   },
+      |   asciimath2jax: {
+      |     delimiters: [["\\$", "\\$"]],
+      |     ignoreClass: "nomath|noasciimath"
+      |   }
+      | });
+    script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_HTMLorMML"
+    link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700|Roboto+Slab:400,700' rel='stylesheet' type='text/css'
+    javascript:
+      document.addEventListener('DOMContentLoaded', MathJax.Hub.TypeSet)
+  body
+    #container
+      article#content
+        == yield
+        nav.pager
+          - if res = prev_resource
+            == link_to "≪ #{res.metadata[:page]['title']}", "/#{res.path}", rel: 'prev'
+          - if res = next_resource
+            == link_to "#{res.metadata[:page]['title']} ≫", "/#{res.path}", rel: 'next'
+        #comments-container
+          #disqus_thread
+          javascript:
+            var disqus_shortname = 'motemen-studynote'; // required: replace example with your forum shortname
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+          <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+      aside
+        - if textbook
+          .textbook
+            h1.title
+              = textbook['title']
+            ul.links
+              - textbook['html_links'].each do |html|
+                li
+                  == html
+        ul.sitemap
+          - each_dir do |dir,resources|
+            li
+              strong
+                == link_to data.textbooks[dir]['title'], "/#{dir}/index.html"
+              ul
+                - resources.each do |res|
+                  li
+                    == link_to res.metadata[:page]['title'], "/#{res.path}"
+
+    javascript:
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-34276254-4', 'auto');
+      ga('send', 'pageview');
