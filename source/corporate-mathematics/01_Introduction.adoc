@@ -2,13 +2,16 @@
 
 == 1.1 累乗(べき乗)
 
-* 型システムはプログラムの正しさを与えるための formal method である。つまりある一定の間違えようのない方法に従って、プログラムの正しさが保証できる。
+累乗(べき乗)つったら複利計算。1年間の金利math:[r]が、math:[n]年にわたって適用可能とした時の1年複利計算は:
 
-[quote, p.3]
-____
-...in principle each type system comes with a definition of the behaviors it
-aims to prevent. The _safety_ (or _soundness_) of each type system must be
-judged with respect to its own set of run-time errors.
-____
+[math]
+++++
+(1+r)(1+r)...(1+r)=(1+r)^n
+++++
 
-型安全ってのはその言語がどういう実行時エラーを防ぎたいか、ということとあわせて考えられるべきもの。
+math:[H]を預金した場合、math:[n]年後に受け取ることの金額は:
+
+[math]
+++++
+H(1+r)^n
+++++
