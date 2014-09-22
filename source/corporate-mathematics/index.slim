@@ -1,0 +1,24 @@
+---
+title: 目次
+---
+h1
+  | 『企業数理のすべて - プランニングからリスクマネジメントへの応用』
+h2
+  | この本について
+p
+  | 企業活動にまつわる数学の基礎を紹介した本。
+p
+  a href="http://store.kinzai.jp/book/12400.html"
+    | ホームページ
+h2
+  | 進め方
+p
+  | 1章から順に読んでいく。書き残すべきことのある章だけメモを残す。練習問題については、Recommended とあるものはできるだけ挑戦する。
+h2
+  | 目次
+ul.sitemap
+  - each_dir do |dir,resources|
+    - if dir == 'Types-and-Programming-Languages'
+      - resources.each do |res|
+        li
+          == link_to res.metadata[:page]['title'], "/#{res.path}"
