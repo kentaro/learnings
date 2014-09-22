@@ -1,3 +1,0 @@
-<% sitemap.resources.select { |res| /\.html$/ === res.path } .each do |res| %>
-http://kentarok.org/learnings/<%= res.destination_path.sub(/\bindex\.html$/, '') %>
-<% end %>

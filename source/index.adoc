@@ -1,3 +1,0 @@
-= Learnings
-
-* link:./corporate-mathematics/[企業数理のすべて - プランニングからリスクマネジメントへの応用]
